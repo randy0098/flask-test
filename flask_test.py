@@ -1,6 +1,6 @@
 import os
 
-from flask import render_template
+from flask import render_template, redirect
 from flask_migrate import Migrate
 from app import create_app, db
 from app.models import User, Role
@@ -19,9 +19,17 @@ migrate = Migrate(app, db)
 #     tests = unittest.TestLoader().discover('tests')
 #     unittest.TextTestRunner(verbosity=2).run(tests)
 
-@app.route('/', methods=['GET'])
+# @app.route('/', methods=['GET'])
+# def index():
+#     return render_template("index.html")
+
+@app.route('/<path:path>', methods=['GET'])
+def get_html(path):
+    return render_template(path)
+
+@app.route('/')
 def index():
-    return render_template("index.html")
+    return redirect('/index.html')
 
 if __name__ == '__main__':
     app.run()
