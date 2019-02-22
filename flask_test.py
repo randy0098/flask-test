@@ -1,4 +1,6 @@
 import os
+
+from flask import render_template
 from flask_migrate import Migrate
 from app import create_app, db
 from app.models import User, Role
@@ -10,7 +12,6 @@ migrate = Migrate(app, db)
 # def make_shell_context():
 #     return dict(db=db, User=User, Role=Role)
 
-
 # @app.cli.command()
 # def test():
 #     """Run the unit tests."""
@@ -18,6 +19,9 @@ migrate = Migrate(app, db)
 #     tests = unittest.TestLoader().discover('tests')
 #     unittest.TextTestRunner(verbosity=2).run(tests)
 
+@app.route('/', methods=['GET'])
+def index():
+    return render_template("index.html")
 
 if __name__ == '__main__':
     app.run()
